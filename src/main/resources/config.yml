@@ -1,0 +1,137 @@
+Config:
+  baseItemChance: 1
+  baseCreatureChance: 0
+  baseDoubleDropChance: 0
+  activeMode: "Activado"
+  inactiveMode: "Desactivado"
+
+Messages:
+  noPermission: "&b[&cLeñador&b] &eNo tienes permiso para hacer esto."
+  axeGiven: "&b[&cLeñador&b] &eHas conseguido un &6&lProtector de Yggdrasil."
+  axeArguments: "&b[&cLeñador&b] &eEl uso es /yggdrasilsbark axe <Material> <Prob. objeto> <Prob. criatura> [Jugador]."
+  invalidMaterial: "&b[&cLeñador&b] &eEl material especificado no es válido."
+  notEnoughArgs: "&b[&cLeñador&b] &eNo has especificado suficientes argumentos."
+  modeChanged: "&d&lModo cambiado"
+  doubleDropAdded: "&b[&cLeñador&b] &eSe ha añadido probabilidad de doble recompensa al objeto."
+  doubleDropArguments: "&b[&cLeñador&b] &eEl uso es /yggdrasilsbark double <Probabilidad>."
+  doubleDrop: "&b[&cLeñador&b] &eHas encontrado dos recompensas a la vez."
+  itemChanceAdded: "&b[&cLeñador&b] &eSe ha añadido probabilidad de objetos al objeto."
+  itemChanceArguments: "&b[&cLeñador&b] &eEl uso es /yggdrasilsbark itemChance <Probabilidad>."
+  creatureChanceAdded: "&b[&cLeñador&b] &eSe ha añadido probabilidad de criaturas al objeto."
+  creatureChanceArguments: "&b[&cLeñador&b] &eEl uso es /yggdrasilsbark creatureChance <Probabilidad>."
+  reload: "&b[&cLeñador&b] &eEl plugin se ha recargado con éxito."
+  help:
+    - "&d-===- &b[&cLeñador&b] &d-===-"
+    - "&b/yb &eMuestra esta página."
+    - "&b/yb axe <Material> <Prob. objeto> <Prob. criatura> [Jugador] &eDa un &6&lProtector de Yggdrasil."
+    - "&b/yb double <Probabilidad> &eAñade probabilidad de doble recompensa al objeto."
+    - "&b/yb itemChance <Probabilidad> &eAñade probabilidad de objetos al objeto."
+    - "&b/yb creatureChance <Probabilidad> &eAñade probabilidad de criaturas al objeto."
+    - "&b/yb reload &eRecarga la configuración del plugin."
+    - "&b"
+    - "&eLeyenda: &b<> &eObligatorio  &b[] &eOpcional"
+
+Sounds:
+  doubleDropSound: ENTITY_PLAYER_LEVELUP
+  changeModeSound: BLOCK_LEVER_CLICK
+  messageSound: BLOCK_BELL_USE
+
+Items:
+  Axe:
+    name: "&6&l🪓 Protector de Yggdrasil 🪓"
+    lore:
+      - "&7"
+      - "&7Hacha fabricada con madera de Yggdrasil."
+      - "&7Concede suerte al talar y cambia de modo."
+      - "&cSHIFT + Soltar &7para alternar."
+      - "&7"
+    mode: "&7Modo: &d%mode%"
+    itemChance: "&7Probabilidad de objetos: &d%item_chance%%"
+    creatureChance: "&7Probabilidad de criaturas: &d%creature_chance%%"
+    doubleChance: "&7Probabilidad de doble: &d%double_chance%%"
+
+Trees:
+  OAK_LOG:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+  SPRUCE_LOG:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+  BIRCH_LOG:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+  JUNGLE_LOG:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+  ACACIA_LOG:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+  DARK_OAK_LOG:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+  MANGROVE_LOG:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+  CHERRY_LOG:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+  CRIMSON_STEM:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+  WARPED_STEM:
+    creatures:
+      - SkeletonKing
+    message: "&fA %creature% &fhas spawned."
+
+Rarities:
+  common:
+    prefix: "&f◆ COMMON ◆ "
+    weight: 50
+    rewards:
+      golden_apple:
+        suffix: "&f1x Golden Apple"
+        command: "give %player% golden_apple 1"
+  uncommon:
+    prefix: "&a◆ UNCOMMON ◆ "
+    weight: 30
+    rewards:
+      golden_apple:
+        suffix: "&f1x Golden Apple"
+        command: "give %player% golden_apple 1"
+  rare:
+    prefix: "&9◆ RARE ◆ "
+    weight: 10
+    rewards:
+      golden_apple:
+        suffix: "&f1x Golden Apple"
+        command: "give %player% golden_apple 1"
+  epic:
+    prefix: "&5◆ EPIC ◆ "
+    weight: 6
+    rewards:
+      golden_apple:
+        suffix: "&f1x Golden Apple"
+        command: "give %player% golden_apple 1"
+  legendary:
+    prefix: "&6◆ LEGENDARY ◆ "
+    weight: 3
+    rewards:
+      golden_apple:
+        suffix: "&f1x Golden Apple"
+        command: "give %player% golden_apple 1"
+  mythic:
+    prefix: "&d◆ MYTHIC ◆ "
+    weight: 1
+    rewards:
+      golden_apple:
+        suffix: "&f1x Golden Apple"
+        command: "give %player% golden_apple 1"
