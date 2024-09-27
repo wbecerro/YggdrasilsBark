@@ -1,11 +1,13 @@
 package wbe.yggdrasilsBark;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import wbe.yggdrasilsBark.commands.CommandListener;
 import wbe.yggdrasilsBark.config.Config;
 import wbe.yggdrasilsBark.config.Messages;
 import wbe.yggdrasilsBark.listeners.EventListeners;
+import wbe.yggdrasilsBark.papi.PapiExtension;
 
 import java.io.File;
 
@@ -17,12 +19,18 @@ public final class YggdrasilsBark extends JavaPlugin {
 
     private EventListeners eventListeners;
 
+    private PapiExtension papiExtension;
+
     public static Config config;
 
     public static Messages messages;
 
     @Override
     public void onEnable() {
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            papiExtension = new PapiExtension();
+            papiExtension.register();
+        }
         saveDefaultConfig();
         getLogger().info("YggdrasilsBark enabled correctly.");
         reloadConfiguration();

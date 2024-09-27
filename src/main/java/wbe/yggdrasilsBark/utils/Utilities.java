@@ -3,10 +3,7 @@ package wbe.yggdrasilsBark.utils;
 import io.lumine.mythic.api.mobs.MythicMob;
 import io.lumine.mythic.bukkit.MythicBukkit;
 import io.lumine.mythic.core.mobs.MobExecutor;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -212,6 +209,7 @@ public class Utilities {
         MythicMob mythicMob = mobExecutor.getMythicMob(mob).get();
         mobExecutor.spawnMob(mob, location);
         String message = rarity.getPrefix() + tree.getMessage().replace("%creature%", mythicMob.getDisplayName().get());
+        player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.creatureSpawnSound), 1F, 1F);
         player.sendMessage(message);
     }
 

@@ -112,6 +112,21 @@ public class CommandListener implements CommandExecutor {
 
                 utilities.addCreatureChance(player.getInventory().getItemInMainHand(), Integer.valueOf(args[1]));
                 sender.sendMessage(YggdrasilsBark.messages.creatureChanceAdded);
+            } else if(args[0].equalsIgnoreCase("stats")) {
+                if (!sender.hasPermission("yggdrasilsbark.command.stats")) {
+                    sender.sendMessage(YggdrasilsBark.messages.noPermission);
+                    return false;
+                }
+
+                String itemChance = String.valueOf(utilities.getPlayerItemChance(player));
+                String creatureChance = String.valueOf(utilities.getPlayerCreatureChance(player));
+                String doubleChance = String.valueOf(utilities.getPlayerDoubleChance(player));
+                for (String line : YggdrasilsBark.messages.stats) {
+                    sender.sendMessage(line.replace("&", "§")
+                            .replace("%itemChance%", itemChance)
+                            .replace("%creatureChance%", creatureChance)
+                            .replace("%doubleChance%", doubleChance));
+                }
             }
         }
         return true;

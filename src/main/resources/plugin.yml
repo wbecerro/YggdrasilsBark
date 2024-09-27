@@ -3,7 +3,7 @@ version: 1.0
 main: wbe.yggdrasilsBark.YggdrasilsBark
 api-version: 1.21
 author: wbe
-depend: [MythicMobs, mcMMO]
+depend: [MythicMobs, mcMMO, PlaceholderAPI]
 commands:
   YggdrasilsBark:
     description: YggdrasilsBark main command

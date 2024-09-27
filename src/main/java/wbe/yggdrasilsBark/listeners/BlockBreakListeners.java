@@ -1,6 +1,8 @@
 package wbe.yggdrasilsBark.listeners;
 
-import com.gmail.nossr50.events.experience.McMMOPlayerXpGainEvent;
+import com.gmail.nossr50.mcMMO;
+import com.gmail.nossr50.util.blockmeta.ChunkManagerFactory;
+import com.gmail.nossr50.util.blockmeta.UserBlockTracker;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -22,6 +24,9 @@ public class BlockBreakListeners implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void giveRewardsOnBreakingWood(BlockBreakEvent event) {
+        if(mcMMO.getUserBlockTracker().isIneligible(event.getBlock().getState())) {
+            return;
+        }
         Material brokenMaterial = event.getBlock().getType();
         Tree treeType = null;
         for(Tree tree : YggdrasilsBark.config.trees) {

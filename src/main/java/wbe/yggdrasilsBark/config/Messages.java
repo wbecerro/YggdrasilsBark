@@ -22,6 +22,7 @@ public class Messages {
     public String creatureChanceAdded;
     public String creatureChanceArguments;
     public String reload;
+    public List<String> stats;
     public List<String> help;
 
     public Messages(FileConfiguration config) {
@@ -41,6 +42,7 @@ public class Messages {
         creatureChanceAdded = config.getString("Messages.creatureChanceAdded").replace("&", "§");
         creatureChanceArguments = config.getString("Messages.creatureChanceArguments").replace("&", "§");
         reload = config.getString("Messages.reload").replace("&", "§");
+        stats = config.getStringList("Messages.stats");
         help = config.getStringList("Messages.help");
     }
 }

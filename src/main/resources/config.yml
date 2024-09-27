@@ -20,21 +20,29 @@ Messages:
   creatureChanceAdded: "&b[&cLeñador&b] &eSe ha añadido probabilidad de criaturas al objeto."
   creatureChanceArguments: "&b[&cLeñador&b] &eEl uso es /yggdrasilsbark creatureChance <Probabilidad>."
   reload: "&b[&cLeñador&b] &eEl plugin se ha recargado con éxito."
+  stats:
+    - "&d&m-===- &b[&cLeñador&b] &d&m-===-"
+    - "&bProbabilidad de objetos: &e%itemChance%"
+    - "&bProbabilidad de criaturas: &e%creatureChance%"
+    - "&bProbabilidad de doble: &e%doubleChance%"
+    - "&d&m-===- &b[&cLeñador&b] &d&m-===-"
   help:
-    - "&d-===- &b[&cLeñador&b] &d-===-"
+    - "&d&m-===- &b[&cLeñador&b] &d&m-===-"
     - "&b/yb &eMuestra esta página."
     - "&b/yb axe <Material> <Prob. objeto> <Prob. criatura> [Jugador] &eDa un &6&lProtector de Yggdrasil."
     - "&b/yb double <Probabilidad> &eAñade probabilidad de doble recompensa al objeto."
     - "&b/yb itemChance <Probabilidad> &eAñade probabilidad de objetos al objeto."
     - "&b/yb creatureChance <Probabilidad> &eAñade probabilidad de criaturas al objeto."
+    - "&b/yb stats &eMuestra tus estadísticas."
     - "&b/yb reload &eRecarga la configuración del plugin."
     - "&b"
     - "&eLeyenda: &b<> &eObligatorio  &b[] &eOpcional"
+    - "&d&m-===- &b[&cLeñador&b] &d&m-===-"
 
 Sounds:
   doubleDropSound: ENTITY_PLAYER_LEVELUP
   changeModeSound: BLOCK_LEVER_CLICK
-  messageSound: BLOCK_BELL_USE
+  creatureSpawnSound: BLOCK_BELL_USE
 
 Items:
   Axe:
