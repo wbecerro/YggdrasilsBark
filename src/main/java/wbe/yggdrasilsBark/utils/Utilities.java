@@ -12,6 +12,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import wbe.yggdrasilsBark.YggdrasilsBark;
+import wbe.yggdrasilsBark.events.PlayerReceiveRewardEvent;
 import wbe.yggdrasilsBark.rarities.Rarity;
 import wbe.yggdrasilsBark.rarities.Reward;
 import wbe.yggdrasilsBark.rarities.Tree;
@@ -225,6 +226,7 @@ public class Utilities {
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
         String message = rarity.getPrefix() + reward.getSuffix();
         player.sendMessage(message);
+        plugin.getServer().getPluginManager().callEvent(new PlayerReceiveRewardEvent(player, rarity, reward));
     }
 
     private Reward getRandomReward(Rarity rarity) {
