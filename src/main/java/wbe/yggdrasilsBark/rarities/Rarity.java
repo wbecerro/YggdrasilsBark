@@ -5,6 +5,8 @@ import java.util.Random;
 
 public class Rarity {
 
+    private String internalName;
+
     private String prefix;
 
     private int weight;
@@ -13,11 +15,19 @@ public class Rarity {
 
     private int rewardsSize;
 
-    public Rarity(String prefix, int weight, List<Reward> rewards) {
+    public Rarity(String internalName, String prefix, int weight, List<Reward> rewards) {
         this.prefix = prefix;
         this.weight = weight;
         this.rewards = rewards;
         this.rewardsSize = rewards.size();
+    }
+
+    public String getInternalName() {
+        return internalName;
+    }
+
+    public void setInternalName(String internalName) {
+        this.internalName = internalName;
     }
 
     public String getPrefix() {

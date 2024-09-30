@@ -64,7 +64,7 @@ public class Config {
             int weight = config.getInt("Rarities." + rarity + ".weight");
             totalRarityWeight += weight;
             List<Reward> rewards = getRewards(rarity);
-            rarities.add(new Rarity(prefix, weight, rewards));
+            rarities.add(new Rarity(rarity, prefix, weight, rewards));
         }
     }
 
