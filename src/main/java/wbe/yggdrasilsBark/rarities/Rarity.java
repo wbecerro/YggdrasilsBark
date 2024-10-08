@@ -16,6 +16,7 @@ public class Rarity {
     private int rewardsSize;
 
     public Rarity(String internalName, String prefix, int weight, List<Reward> rewards) {
+        this.internalName = internalName;
         this.prefix = prefix;
         this.weight = weight;
         this.rewards = rewards;
