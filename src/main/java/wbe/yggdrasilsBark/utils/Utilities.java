@@ -203,13 +203,12 @@ public class Utilities {
     }
 
     public void spawnCreature(Block block, Tree tree, Player player) {
-        Rarity rarity = calculateRarity();
         String mob = getRandomCreature(tree);
         Location location = block.getLocation();
         MobExecutor mobExecutor = MythicBukkit.inst().getMobManager();
         MythicMob mythicMob = mobExecutor.getMythicMob(mob).get();
         mobExecutor.spawnMob(mob, location);
-        String message = rarity.getPrefix() + tree.getMessage().replace("%creature%", mythicMob.getDisplayName().get());
+        String message = tree.getMessage().replace("%creature%", mythicMob.getDisplayName().get());
         player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.creatureSpawnSound), 1F, 1F);
         player.sendMessage(message);
     }
