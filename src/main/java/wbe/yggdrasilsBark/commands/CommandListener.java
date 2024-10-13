@@ -56,10 +56,19 @@ public class CommandListener implements CommandExecutor {
 
                 Axe axe = new Axe(material, itemChance, creatureChance);
                 if(args.length > 4) {
-                    Bukkit.getPlayer(args[4]).getInventory().addItem(axe);
-                    Bukkit.getPlayer(args[4]).sendMessage(YggdrasilsBark.messages.axeGiven);
+                    player = Bukkit.getPlayer(args[4]);
+                    if(player.getInventory().firstEmpty() == -1) {
+                        player.getWorld().dropItem(player.getLocation(), axe);
+                    } else {
+                        player.getInventory().addItem(axe);
+                    }
+                    player.sendMessage(YggdrasilsBark.messages.axeGiven);
                 } else {
-                    player.getInventory().addItem(axe);
+                    if(player.getInventory().firstEmpty() == -1) {
+                        player.getWorld().dropItem(player.getLocation(), axe);
+                    } else {
+                        player.getInventory().addItem(axe);
+                    }
                     player.sendMessage(YggdrasilsBark.messages.axeGiven);
                 }
             } else if(args[0].equalsIgnoreCase("reload")) {
