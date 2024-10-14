@@ -24,6 +24,10 @@ public class BlockBreakListeners implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void giveRewardsOnBreakingWood(BlockBreakEvent event) {
+        if(event.isCancelled()) {
+            return;
+        }
+
         if(mcMMO.getUserBlockTracker().isIneligible(event.getBlock().getState())) {
             return;
         }
