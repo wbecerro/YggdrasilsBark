@@ -49,24 +49,25 @@ public class BlockBreakListeners implements Listener {
         int itemChance = utilities.getPlayerItemChance(player);
         int doubleChance = utilities.getPlayerDoubleChance(player);
 
-        int iterations = 1;
-        if(random.nextInt(100) + 1 <= doubleChance) {
-            iterations++;
-            player.sendMessage(YggdrasilsBark.messages.doubleDrop);
-            player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
+        if(random.nextInt(100) + 1 <= creatureChance) {
+            utilities.spawnCreature(event.getBlock(), treeType, player);
+            if(random.nextInt(100) + 1 <= doubleChance) {
+                player.sendMessage(YggdrasilsBark.messages.doubleDrop);
+                player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
+                utilities.spawnCreature(event.getBlock(), treeType, player);
+            }
+            return;
         }
 
-        for(int i=0;i<iterations;i++) {
-            if(random.nextInt(100) + 1 <= creatureChance) {
-                utilities.spawnCreature(event.getBlock(), treeType, player);
-                continue;
-            }
 
-
-            if(random.nextInt(100 ) + 1 <= itemChance) {
+        if(random.nextInt(100 ) + 1 <= itemChance) {
+            utilities.giveReward(treeType, player);
+            if(random.nextInt(100) + 1 <= doubleChance) {
+                player.sendMessage(YggdrasilsBark.messages.doubleDrop);
+                player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
                 utilities.giveReward(treeType, player);
-                continue;
             }
+            return;
         }
     }
 }
