@@ -5,10 +5,13 @@ import io.lumine.mythic.bukkit.MythicBukkit;
 import io.lumine.mythic.core.mobs.MobExecutor;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import wbe.yggdrasilsBark.YggdrasilsBark;
@@ -230,6 +233,13 @@ public class Utilities {
             player.sendTitle(rarity.getTitle(), "", 10, 70, 20);
         }
 
+        if(rarity.getFireworks() != -1) {
+            for(int i=0;i<rarity.getFireworks();i++) {
+                Firework firework = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK_ROCKET);
+                firework.setFireworkMeta(getRandomFirework(firework));
+            }
+        }
+
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
         String message = rarity.getPrefix() + reward.getSuffix();
         player.sendMessage(message);
@@ -307,6 +317,26 @@ public class Utilities {
 
         meta.getPersistentDataContainer().set(baseCreatureKey, PersistentDataType.INTEGER, chance);
         item.setItemMeta(meta);
+    }
+
+    private FireworkMeta getRandomFirework(Firework firework) {
+        Random random = new Random();
+        FireworkMeta meta = firework.getFireworkMeta();
+        meta.setPower(random.nextInt(3) + 1);
+        meta.addEffect(FireworkEffect.builder()
+                .with(getRandomFireworkType())
+                .flicker(random.nextBoolean())
+                .trail(random.nextBoolean())
+                .withColor(Color.fromRGB(random.nextInt(255), random.nextInt(255), random.nextInt(255)))
+                .withColor(Color.fromRGB(random.nextInt(255), random.nextInt(255), random.nextInt(255)))
+                .withFade(Color.fromRGB(random.nextInt(255), random.nextInt(255), random.nextInt(255)))
+                .build());
+        return meta;
+    }
+
+    private FireworkEffect.Type getRandomFireworkType() {
+        Random random = new Random();
+        return FireworkEffect.Type.values()[random.nextInt(FireworkEffect.Type.values().length)];
     }
 
     private int findLine(ItemStack item, String line) {

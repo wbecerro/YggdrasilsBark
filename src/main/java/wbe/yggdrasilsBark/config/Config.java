@@ -72,7 +72,11 @@ public class Config {
             if(config.contains("Rarities." + rarity + ".title")) {
                 title = config.getString("Rarities." + rarity + ".title").replace("&", "§");
             }
-            rarities.add(new Rarity(rarity, prefix, weight, rewards, broadcast, title));
+            int fireworks = -1;
+            if(config.contains("Rarities." + rarity + ".fireworks")) {
+                fireworks = config.getInt("Rarities." + rarity + ".fireworks");
+            }
+            rarities.add(new Rarity(rarity, prefix, weight, rewards, broadcast, title, fireworks));
         }
     }
 

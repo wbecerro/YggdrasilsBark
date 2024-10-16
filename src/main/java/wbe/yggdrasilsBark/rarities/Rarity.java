@@ -19,7 +19,9 @@ public class Rarity {
 
     private String title;
 
-    public Rarity(String internalName, String prefix, int weight, List<Reward> rewards, String broadcast, String title) {
+    private int fireworks;
+
+    public Rarity(String internalName, String prefix, int weight, List<Reward> rewards, String broadcast, String title, int fireworks) {
         this.internalName = internalName;
         this.prefix = prefix;
         this.weight = weight;
@@ -27,6 +29,7 @@ public class Rarity {
         this.rewardsSize = rewards.size();
         this.broadcast = broadcast;
         this.title = title;
+        this.fireworks = fireworks;
     }
 
     public String getInternalName() {
@@ -75,6 +78,14 @@ public class Rarity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getFireworks() {
+        return fireworks;
+    }
+
+    public void setFireworks(int fireworks) {
+        this.fireworks = fireworks;
     }
 
     public Reward getRandomReward() {
