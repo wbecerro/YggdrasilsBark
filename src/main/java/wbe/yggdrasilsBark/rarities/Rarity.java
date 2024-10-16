@@ -15,12 +15,15 @@ public class Rarity {
 
     private int rewardsSize;
 
-    public Rarity(String internalName, String prefix, int weight, List<Reward> rewards) {
+    private String broadcast;
+
+    public Rarity(String internalName, String prefix, int weight, List<Reward> rewards, String broadcast) {
         this.internalName = internalName;
         this.prefix = prefix;
         this.weight = weight;
         this.rewards = rewards;
         this.rewardsSize = rewards.size();
+        this.broadcast = broadcast;
     }
 
     public String getInternalName() {
@@ -53,6 +56,14 @@ public class Rarity {
 
     public void setRewards(List<Reward> rewards) {
         this.rewards = rewards;
+    }
+
+    public String getBroadcast() {
+        return broadcast;
+    }
+
+    public void setBroadcast(String broadcast) {
+        this.broadcast = broadcast;
     }
 
     public Reward getRandomReward() {

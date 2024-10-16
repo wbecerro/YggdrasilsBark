@@ -218,10 +218,13 @@ public class Utilities {
         return tree.getCreatures().get(random.nextInt(tree.getCreatures().size()));
     }
 
-    public void giveReward(Tree tree, Player player) {
+    public void giveReward(Player player) {
         Rarity rarity = calculateRarity();
         Reward reward = getRandomReward(rarity);
         String command = reward.getCommand().replace("%player%", player.getName());
+        if(!rarity.getBroadcast().isEmpty()) {
+            Bukkit.getServer().broadcastMessage(rarity.getBroadcast());
+        }
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
         String message = rarity.getPrefix() + reward.getSuffix();
         player.sendMessage(message);

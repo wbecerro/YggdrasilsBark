@@ -64,7 +64,11 @@ public class Config {
             int weight = config.getInt("Rarities." + rarity + ".weight");
             totalRarityWeight += weight;
             List<Reward> rewards = getRewards(rarity);
-            rarities.add(new Rarity(rarity, prefix, weight, rewards));
+            String broadcast = "";
+            if(config.contains("Rarities." + rarity + ".broadcast")) {
+                broadcast = config.getString("Rarities." + rarity + ".broadcast").replace("&", "§");
+            }
+            rarities.add(new Rarity(rarity, prefix, weight, rewards, broadcast));
         }
     }
 

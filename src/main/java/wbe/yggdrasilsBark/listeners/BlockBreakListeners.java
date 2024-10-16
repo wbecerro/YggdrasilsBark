@@ -61,11 +61,11 @@ public class BlockBreakListeners implements Listener {
 
 
         if(random.nextInt(100 ) + 1 <= itemChance) {
-            utilities.giveReward(treeType, player);
+            utilities.giveReward(player);
             if(random.nextInt(100) + 1 <= doubleChance) {
                 player.sendMessage(YggdrasilsBark.messages.doubleDrop);
                 player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
-                utilities.giveReward(treeType, player);
+                utilities.giveReward(player);
             }
             return;
         }
