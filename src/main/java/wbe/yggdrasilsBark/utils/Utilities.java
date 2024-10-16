@@ -223,8 +223,13 @@ public class Utilities {
         Reward reward = getRandomReward(rarity);
         String command = reward.getCommand().replace("%player%", player.getName());
         if(!rarity.getBroadcast().isEmpty()) {
-            Bukkit.getServer().broadcastMessage(rarity.getBroadcast());
+            Bukkit.getServer().broadcastMessage(rarity.getBroadcast().replace("%player%", player.getName()));
         }
+
+        if(!rarity.getTitle().isEmpty()) {
+            player.sendTitle(rarity.getTitle(), "", 10, 70, 20);
+        }
+
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
         String message = rarity.getPrefix() + reward.getSuffix();
         player.sendMessage(message);

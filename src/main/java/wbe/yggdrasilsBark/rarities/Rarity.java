@@ -17,13 +17,16 @@ public class Rarity {
 
     private String broadcast;
 
-    public Rarity(String internalName, String prefix, int weight, List<Reward> rewards, String broadcast) {
+    private String title;
+
+    public Rarity(String internalName, String prefix, int weight, List<Reward> rewards, String broadcast, String title) {
         this.internalName = internalName;
         this.prefix = prefix;
         this.weight = weight;
         this.rewards = rewards;
         this.rewardsSize = rewards.size();
         this.broadcast = broadcast;
+        this.title = title;
     }
 
     public String getInternalName() {
@@ -64,6 +67,14 @@ public class Rarity {
 
     public void setBroadcast(String broadcast) {
         this.broadcast = broadcast;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Reward getRandomReward() {
