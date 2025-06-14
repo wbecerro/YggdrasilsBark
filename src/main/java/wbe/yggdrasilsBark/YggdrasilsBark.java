@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import wbe.yggdrasilsBark.commands.CommandListener;
+import wbe.yggdrasilsBark.commands.TabListener;
 import wbe.yggdrasilsBark.config.Config;
 import wbe.yggdrasilsBark.config.Messages;
 import wbe.yggdrasilsBark.listeners.EventListeners;
@@ -16,6 +17,8 @@ public final class YggdrasilsBark extends JavaPlugin {
     private FileConfiguration configuration;
 
     private CommandListener commandListener;
+
+    private TabListener tabListener;
 
     private EventListeners eventListeners;
 
@@ -37,6 +40,8 @@ public final class YggdrasilsBark extends JavaPlugin {
 
         commandListener = new CommandListener();
         getCommand("yggdrasilsbark").setExecutor(commandListener);
+        tabListener = new TabListener();
+        getCommand("yggdrasilsbark").setTabCompleter(tabListener);
         eventListeners = new EventListeners();
         eventListeners.initializeListeners();
     }
