@@ -58,44 +58,65 @@ Items:
     creatureChance: "&7Probabilidad de criaturas: &d%creature_chance%%"
     doubleChance: "&7Probabilidad de doble: &d%double_chance%%"
 
+# Para desbloquear una criatura hará falta tener el permiso de ese árbol yggdrasilsbark.creatures.arbol Ej: yggdrasilsbark.creatures.OAK_LOG
 Trees:
   OAK_LOG:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 200
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."
   SPRUCE_LOG:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 100
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."
   BIRCH_LOG:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 200
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."
   JUNGLE_LOG:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 100
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."
   ACACIA_LOG:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 200
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."
   DARK_OAK_LOG:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 100
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."
   MANGROVE_LOG:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 350
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."
   CHERRY_LOG:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 350
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."
   CRIMSON_STEM:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 500
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."
   WARPED_STEM:
+    mcmmoSkill: woodcutting
+    mcmmoLevel: 500
     creatures:
       - SkeletonKing
     message: "&fA %creature% &fhas spawned."

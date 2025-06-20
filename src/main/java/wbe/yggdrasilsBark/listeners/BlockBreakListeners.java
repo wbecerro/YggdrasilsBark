@@ -50,13 +50,14 @@ public class BlockBreakListeners implements Listener {
         int doubleChance = utilities.getPlayerDoubleChance(player);
 
         if(random.nextInt(100) + 1 <= creatureChance) {
-            utilities.spawnCreature(event.getBlock(), treeType, player);
-            if(random.nextInt(100) + 1 <= doubleChance) {
-                player.sendMessage(YggdrasilsBark.messages.doubleDrop);
-                player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
-                utilities.spawnCreature(event.getBlock(), treeType, player);
+            if(utilities.spawnCreature(event.getBlock(), treeType, player)) {
+                if(random.nextInt(100) + 1 <= doubleChance) {
+                    player.sendMessage(YggdrasilsBark.messages.doubleDrop);
+                    player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
+                    utilities.spawnCreature(event.getBlock(), treeType, player);
+                }
+                return;
             }
-            return;
         }
 
 

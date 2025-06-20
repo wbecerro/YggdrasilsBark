@@ -1,5 +1,6 @@
 package wbe.yggdrasilsBark.utils;
 
+import com.gmail.nossr50.util.player.UserManager;
 import io.lumine.mythic.api.mobs.MythicMob;
 import io.lumine.mythic.bukkit.MythicBukkit;
 import io.lumine.mythic.core.mobs.MobExecutor;
@@ -205,7 +206,15 @@ public class Utilities {
         return rarities.get(rarities.size() - 1);
     }
 
-    public void spawnCreature(Block block, Tree tree, Player player) {
+    public boolean spawnCreature(Block block, Tree tree, Player player) {
+        if(UserManager.getPlayer(player).getSkillLevel(tree.getSkill()) < tree.getSkillLevel()) {
+            return false;
+        }
+
+        if(!player.hasPermission("yggdrasilsbark.creatures." + tree.getMaterial().toString())) {
+            return false;
+        }
+
         String mob = getRandomCreature(tree);
         Location location = block.getLocation();
         MobExecutor mobExecutor = MythicBukkit.inst().getMobManager();
@@ -214,6 +223,7 @@ public class Utilities {
         String message = tree.getMessage().replace("%creature%", mythicMob.getDisplayName().get());
         player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.creatureSpawnSound), 1F, 1F);
         player.sendMessage(message);
+        return true;
     }
 
     private String getRandomCreature(Tree tree) {

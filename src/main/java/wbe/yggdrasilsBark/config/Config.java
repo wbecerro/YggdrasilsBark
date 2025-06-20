@@ -1,5 +1,6 @@
 package wbe.yggdrasilsBark.config;
 
+import com.gmail.nossr50.datatypes.skills.PrimarySkillType;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import wbe.yggdrasilsBark.rarities.Reward;
@@ -85,7 +86,9 @@ public class Config {
         for(String tree : configTrees) {
             String message = config.getString("Trees." + tree + ".message").replace("&", "§");
             List<String> creatures = config.getStringList("Trees." + tree + ".creatures");
-            trees.add(new Tree(Material.valueOf(tree), creatures, message));
+            PrimarySkillType skill = PrimarySkillType.valueOf(config.getString("Trees." + tree + ".mcmmoSkill").toUpperCase());
+            int level = config.getInt("Trees." + tree + ".mcmmoLevel");
+            trees.add(new Tree(Material.valueOf(tree), creatures, skill, level, message));
         }
     }
 
