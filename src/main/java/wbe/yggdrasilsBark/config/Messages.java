@@ -21,6 +21,8 @@ public class Messages {
     public String itemChanceArguments;
     public String creatureChanceAdded;
     public String creatureChanceArguments;
+    public String boostRarityAdded;
+    public String boostRarityArguments;
     public String reload;
     public List<String> stats;
     public List<String> help;
@@ -41,6 +43,8 @@ public class Messages {
         itemChanceArguments = config.getString("Messages.itemChanceArguments").replace("&", "§");
         creatureChanceAdded = config.getString("Messages.creatureChanceAdded").replace("&", "§");
         creatureChanceArguments = config.getString("Messages.creatureChanceArguments").replace("&", "§");
+        boostRarityAdded = config.getString("Messages.boostRarityAdded").replace("&", "§");
+        boostRarityArguments = config.getString("Messages.boostRarityArguments").replace("&", "§");
         reload = config.getString("Messages.reload").replace("&", "§");
         stats = config.getStringList("Messages.stats");
         help = config.getStringList("Messages.help");

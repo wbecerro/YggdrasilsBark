@@ -190,10 +190,64 @@ public class Utilities {
         return 0;
     }
 
+    public double getPlayerBoostedChance(Rarity rarity, Player player) {
+        double chance = 0;
+
+        PlayerInventory inventory = player.getInventory();
+        ItemStack mainHand = inventory.getItemInMainHand();
+        ItemStack offHand = inventory.getItemInOffHand();
+        ItemStack[] armor = inventory.getArmorContents();
+
+        if(!mainHand.getType().equals(Material.AIR)) {
+            chance += getItemBoostedChance(rarity, mainHand);
+        }
+
+        if(!offHand.getType().equals(Material.AIR)) {
+            chance += getItemBoostedChance(rarity, offHand);
+        }
+
+        for(ItemStack item : armor) {
+            if(item == null) {
+                continue;
+            }
+            chance += getItemBoostedChance(rarity, item);
+        }
+
+        return chance;
+    }
+
+    private double getItemBoostedChance(Rarity rarity, ItemStack item) {
+        ItemMeta meta = item.getItemMeta();
+        if(meta == null) {
+            return 0;
+        }
+
+        NamespacedKey modeKey = new NamespacedKey(plugin, "AxeMode");
+        if(meta.getPersistentDataContainer().has(modeKey)) {
+            if(!meta.getPersistentDataContainer().get(modeKey, PersistentDataType.BOOLEAN)) {
+                return 0;
+            }
+        }
+
+        NamespacedKey rarityKey = new NamespacedKey(plugin, "boostRarity");
+        if(meta.getPersistentDataContainer().has(rarityKey)) {
+            if(!meta.getPersistentDataContainer().get(rarityKey, PersistentDataType.STRING).equalsIgnoreCase(rarity.getInternalName())) {
+                return 0;
+            }
+        }
+
+        NamespacedKey percentKey = new NamespacedKey(plugin, "boostRarityPercent");
+        if(meta.getPersistentDataContainer().has(percentKey)) {
+            return meta.getPersistentDataContainer().get(percentKey, PersistentDataType.DOUBLE);
+        }
+
+        return 0;
+    }
+
     public Rarity calculateRarity() {
         Random random = new Random();
-        int randomNumber = random.nextInt(YggdrasilsBark.config.totalRarityWeight);
-        int weight = 0;
+        double randomNumber = random.nextDouble(YggdrasilsBark.config.totalRarityWeight);
+        double weight = 0;
         List<Rarity> rarities = YggdrasilsBark.config.rarities;
 
         for(Rarity rarity : rarities) {
@@ -204,6 +258,43 @@ public class Utilities {
         }
 
         return rarities.get(rarities.size() - 1);
+    }
+
+    public Rarity calculateRarityWithBoost(Rarity boostedRarity, double percent) {
+        double boostedAmount = getBoostedAmount(boostedRarity, percent);
+        Random random = new Random();
+        double randomNumber = random.nextDouble(YggdrasilsBark.config.totalRarityWeight + boostedAmount);
+        double weight = 0;
+        List<Rarity> rarities = YggdrasilsBark.config.rarities;
+
+        for(Rarity rarity : rarities) {
+            if(rarity.getInternalName().equalsIgnoreCase(boostedRarity.getInternalName())) {
+                weight += boostedAmount;
+            }
+            weight += rarity.getWeight();
+            if(randomNumber < weight) {
+                return rarity;
+            }
+        }
+
+        return rarities.get(rarities.size() - 1);
+    }
+
+    public Rarity getRarity(Player player) {
+        for(Rarity configRarity : YggdrasilsBark.config.rarities) {
+            double boosted = getPlayerBoostedChance(configRarity, player);
+            if(boosted != 0) {
+                return calculateRarityWithBoost(configRarity, boosted);
+            }
+        }
+
+        return calculateRarity();
+    }
+
+    private double getBoostedAmount(Rarity boostedRarity, double percent) {
+        double booster = 1 + percent;
+        double newWeight = boostedRarity.getWeight() * booster;
+        return newWeight - boostedRarity.getWeight();
     }
 
     public boolean spawnCreature(Block block, Tree tree, Player player) {
@@ -232,7 +323,7 @@ public class Utilities {
     }
 
     public void giveReward(Player player) {
-        Rarity rarity = calculateRarity();
+        Rarity rarity = getRarity(player);
         Reward reward = getRandomReward(rarity);
         String command = reward.getCommand().replace("%player%", player.getName());
         if(!rarity.getBroadcast().isEmpty()) {
@@ -327,6 +418,42 @@ public class Utilities {
 
         meta.getPersistentDataContainer().set(baseCreatureKey, PersistentDataType.INTEGER, chance);
         item.setItemMeta(meta);
+    }
+
+    public void addBoostRarityChance(ItemStack item, double chance, String rarityName) {
+        NamespacedKey percentKey = new NamespacedKey(plugin, "boostRarityPercent");
+        NamespacedKey rarityKey = new NamespacedKey(plugin, "boostRarity");
+        Rarity rarity = getRarityByName(rarityName);
+        String loreLine = YggdrasilsBark.config.boostChance
+                .replace("%boost_chance%", String.valueOf((int) (chance * 100)))
+                .replace("%rarity%", rarity.getName());
+        ItemMeta meta = item.getItemMeta();
+
+        if(meta == null) {
+            meta = Bukkit.getItemFactory().getItemMeta(item.getType());
+        }
+
+        List<String> lore = new ArrayList<>();
+        if(meta.hasLore()) {
+            lore = meta.getLore();
+        }
+
+        lore.add(loreLine);
+        meta.setLore(lore);
+
+        meta.getPersistentDataContainer().set(rarityKey, PersistentDataType.STRING, rarityName);
+        meta.getPersistentDataContainer().set(percentKey, PersistentDataType.DOUBLE, chance);
+        item.setItemMeta(meta);
+    }
+
+    private Rarity getRarityByName(String name) {
+        for(Rarity rarity : YggdrasilsBark.config.rarities) {
+            if(rarity.getInternalName().equalsIgnoreCase(name)) {
+                return rarity;
+            }
+        }
+
+        return null;
     }
 
     private FireworkMeta getRandomFirework(Firework firework) {

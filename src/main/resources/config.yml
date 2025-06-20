@@ -19,6 +19,8 @@ Messages:
   itemChanceArguments: "&b[&cLeñador&b] &eEl uso es /yggdrasilsbark itemChance <Probabilidad>."
   creatureChanceAdded: "&b[&cLeñador&b] &eSe ha añadido probabilidad de criaturas al objeto."
   creatureChanceArguments: "&b[&cLeñador&b] &eEl uso es /yggdrasilsbark creatureChance <Probabilidad>."
+  boostRarityAdded: "&b[&cLeñador&b] &eSe ha añadido probabilidad extra de %rarity% al objeto."
+  boostRarityArguments: "&b[&cLeñador&b] &eEl uso es /yggdrasilsbark boostRarity <Rareza> <Porcentaje en base 0>."
   reload: "&b[&cLeñador&b] &eEl plugin se ha recargado con éxito."
   stats:
     - "&d&m-===- &b[&cLeñador&b] &d&m-===-"
@@ -33,6 +35,7 @@ Messages:
     - "&b/yb double <Probabilidad> &eAñade probabilidad de doble recompensa al objeto."
     - "&b/yb itemChance <Probabilidad> &eAñade probabilidad de objetos al objeto."
     - "&b/yb creatureChance <Probabilidad> &eAñade probabilidad de criaturas al objeto."
+    - "&b/yb boostRarity <Rareza> <Porcentaje en base 0> &eAñade probabilidad de encontrar más una rareza."
     - "&b/yb stats &eMuestra tus estadísticas."
     - "&b/yb reload &eRecarga la configuración del plugin."
     - "&b"
@@ -57,6 +60,7 @@ Items:
     itemChance: "&7Probabilidad de objetos: &d%item_chance%%"
     creatureChance: "&7Probabilidad de criaturas: &d%creature_chance%%"
     doubleChance: "&7Probabilidad de doble: &d%double_chance%%"
+    boostChance: "&7Probabilidad de %rarity%&7: &d%boost_chance%%"
 
 # Para desbloquear una criatura hará falta tener el permiso de ese árbol yggdrasilsbark.creatures.arbol Ej: yggdrasilsbark.creatures.OAK_LOG
 Trees:
@@ -123,6 +127,7 @@ Trees:
 
 Rarities:
   common:
+    name: "&fCommon"
     prefix: "&f◆ COMMON ◆ "
     weight: 50
     rewards:
@@ -130,6 +135,7 @@ Rarities:
         suffix: "&f1x Golden Apple"
         command: "give %player% golden_apple 1"
   uncommon:
+    name: "&aUncommon"
     prefix: "&a◆ UNCOMMON ◆ "
     weight: 30
     rewards:
@@ -137,6 +143,7 @@ Rarities:
         suffix: "&f1x Golden Apple"
         command: "give %player% golden_apple 1"
   rare:
+    name: "&9Rare"
     prefix: "&9◆ RARE ◆ "
     weight: 10
     rewards:
@@ -144,6 +151,7 @@ Rarities:
         suffix: "&f1x Golden Apple"
         command: "give %player% golden_apple 1"
   epic:
+    name: "&5Epic"
     prefix: "&5◆ EPIC ◆ "
     weight: 6
     rewards:
@@ -151,6 +159,7 @@ Rarities:
         suffix: "&f1x Golden Apple"
         command: "give %player% golden_apple 1"
   legendary:
+    name: "&6Legendary"
     prefix: "&6◆ LEGENDARY ◆ "
     weight: 3
     rewards:
@@ -158,6 +167,7 @@ Rarities:
         suffix: "&f1x Golden Apple"
         command: "give %player% golden_apple 1"
   mythic:
+    name: "&dMythic"
     prefix: "&d◆ MYTHIC ◆ "
     weight: 1
     rewards:

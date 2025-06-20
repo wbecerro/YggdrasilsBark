@@ -122,7 +122,7 @@ public class CommandListener implements CommandExecutor {
                 utilities.addCreatureChance(player.getInventory().getItemInMainHand(), Integer.valueOf(args[1]));
                 sender.sendMessage(YggdrasilsBark.messages.creatureChanceAdded);
             } else if(args[0].equalsIgnoreCase("stats")) {
-                if (!sender.hasPermission("yggdrasilsbark.command.stats")) {
+                if(!sender.hasPermission("yggdrasilsbark.command.stats")) {
                     sender.sendMessage(YggdrasilsBark.messages.noPermission);
                     return false;
                 }
@@ -130,12 +130,28 @@ public class CommandListener implements CommandExecutor {
                 String itemChance = String.valueOf(utilities.getPlayerItemChance(player));
                 String creatureChance = String.valueOf(utilities.getPlayerCreatureChance(player));
                 String doubleChance = String.valueOf(utilities.getPlayerDoubleChance(player));
-                for (String line : YggdrasilsBark.messages.stats) {
+                for(String line : YggdrasilsBark.messages.stats) {
                     sender.sendMessage(line.replace("&", "§")
                             .replace("%itemChance%", itemChance)
                             .replace("%creatureChance%", creatureChance)
                             .replace("%doubleChance%", doubleChance));
                 }
+            } else if(args[0].equalsIgnoreCase("boostRarity")) {
+                if(!sender.hasPermission("yggdrasilsbark.command.boostRarity")) {
+                    sender.sendMessage(YggdrasilsBark.messages.noPermission);
+                    return false;
+                }
+
+                if(args.length < 3) {
+                    sender.sendMessage(YggdrasilsBark.messages.notEnoughArgs);
+                    sender.sendMessage(YggdrasilsBark.messages.boostRarityArguments);
+                    return false;
+                }
+
+                String rarity = args[1];
+                double percent = Double.parseDouble(args[2]);
+                utilities.addBoostRarityChance(player.getInventory().getItemInMainHand(), percent, rarity);
+                sender.sendMessage(YggdrasilsBark.messages.boostRarityAdded.replace("%rarity%", rarity));
             }
         }
         return true;

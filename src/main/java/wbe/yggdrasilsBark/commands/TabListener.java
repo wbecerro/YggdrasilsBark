@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
+import wbe.yggdrasilsBark.YggdrasilsBark;
+import wbe.yggdrasilsBark.rarities.Rarity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +17,7 @@ import java.util.List;
 public class TabListener implements TabCompleter {
 
     private final List<String> subCommands = Arrays.asList("help", "axe", "double", "itemChance", "creatureChance",
-            "stats", "reload");
+            "boostRarity", "stats", "reload");
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
@@ -49,6 +51,15 @@ public class TabListener implements TabCompleter {
                 case "double":
                     completions.add("<Probabilidad>");
                     break;
+                case "boostrarity":
+                    for(Rarity rarity : YggdrasilsBark.config.rarities) {
+                        if(args[1].isEmpty()) {
+                            completions.add(rarity.getInternalName());
+                        } else if(rarity.getInternalName().startsWith(args[1])) {
+                            completions.add(rarity.getInternalName());
+                        }
+                    }
+                    break;
             }
         }
 
@@ -57,6 +68,9 @@ public class TabListener implements TabCompleter {
             switch(args[0].toLowerCase()) {
                 case "axe":
                     completions.add("<Probabilidad objeto>");
+                    break;
+                case "boostrarity":
+                    completions.add("<Procentaje en base 0>");
                     break;
             }
         }

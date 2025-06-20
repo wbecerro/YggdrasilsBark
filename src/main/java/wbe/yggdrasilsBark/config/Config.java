@@ -31,10 +31,11 @@ public class Config {
     public String axeItemChance;
     public String axeCreatureChance;
     public String axeDoubleChance;
+    public String boostChance;
 
     public List<Tree> trees = new ArrayList<>();
     public List<Rarity> rarities = new ArrayList<>();
-    public int totalRarityWeight = 0;
+    public double totalRarityWeight = 0;
 
     public Config(FileConfiguration config) {
         this.config = config;
@@ -53,6 +54,7 @@ public class Config {
         axeItemChance = config.getString("Items.Axe.itemChance").replace("&", "§");
         axeCreatureChance = config.getString("Items.Axe.creatureChance").replace("&", "§");
         axeDoubleChance = config.getString("Items.Axe.doubleChance").replace("&", "§");
+        boostChance = config.getString("Items.Axe.boostChance").replace("&", "§");
 
         loadTrees();
         loadRarities();
@@ -61,8 +63,9 @@ public class Config {
     private void loadRarities() {
         Set<String> configRarities = config.getConfigurationSection("Rarities").getKeys(false);
         for(String rarity : configRarities) {
+            String name = config.getString("Rarities." + rarity + ".name").replace("&", "§");
             String prefix = config.getString("Rarities." + rarity + ".prefix").replace("&", "§");
-            int weight = config.getInt("Rarities." + rarity + ".weight");
+            double weight = config.getDouble("Rarities." + rarity + ".weight");
             totalRarityWeight += weight;
             List<Reward> rewards = getRewards(rarity);
             String broadcast = "";
@@ -77,7 +80,7 @@ public class Config {
             if(config.contains("Rarities." + rarity + ".fireworks")) {
                 fireworks = config.getInt("Rarities." + rarity + ".fireworks");
             }
-            rarities.add(new Rarity(rarity, prefix, weight, rewards, broadcast, title, fireworks));
+            rarities.add(new Rarity(rarity, name, prefix, weight, rewards, broadcast, title, fireworks));
         }
     }
 
