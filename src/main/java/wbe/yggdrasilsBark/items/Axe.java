@@ -14,7 +14,7 @@ public class Axe extends ItemStack {
 
     private YggdrasilsBark plugin = YggdrasilsBark.getInstance();
 
-    public Axe(Material material, int itemChance, int creatureChance) {
+    public Axe(Material material, double itemChance, double creatureChance) {
         super(material);
 
         ItemMeta meta;
@@ -39,7 +39,7 @@ public class Axe extends ItemStack {
         setKeys(itemChance, creatureChance);
     }
 
-    private void setKeys(int itemChance, int creatureChance) {
+    private void setKeys(double itemChance, double creatureChance) {
         ItemMeta meta = getItemMeta();
         NamespacedKey axeKey = new NamespacedKey(plugin, "YBAxe");
         NamespacedKey modeKey = new NamespacedKey(plugin, "AxeMode");
@@ -48,8 +48,8 @@ public class Axe extends ItemStack {
 
         meta.getPersistentDataContainer().set(axeKey, PersistentDataType.BOOLEAN, true);
         meta.getPersistentDataContainer().set(modeKey, PersistentDataType.BOOLEAN, true);
-        meta.getPersistentDataContainer().set(itemKey, PersistentDataType.INTEGER, itemChance);
-        meta.getPersistentDataContainer().set(creatureKey, PersistentDataType.INTEGER, creatureChance);
+        meta.getPersistentDataContainer().set(itemKey, PersistentDataType.DOUBLE, itemChance);
+        meta.getPersistentDataContainer().set(creatureKey, PersistentDataType.DOUBLE, creatureChance);
 
         setItemMeta(meta);
     }

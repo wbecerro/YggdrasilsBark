@@ -43,13 +43,13 @@ public class BlockBreakListeners implements Listener {
 
         Random random = new Random();
         Player player = event.getPlayer();
-        int creatureChance = utilities.getPlayerCreatureChance(player);
-        int itemChance = utilities.getPlayerItemChance(player);
-        int doubleChance = utilities.getPlayerDoubleChance(player);
+        double creatureChance = utilities.getPlayerCreatureChance(player);
+        double itemChance = utilities.getPlayerItemChance(player);
+        double doubleChance = utilities.getPlayerDoubleChance(player);
 
-        if(random.nextInt(100) + 1 <= creatureChance) {
+        if(random.nextDouble(100) <= creatureChance) {
             if(utilities.spawnCreature(event.getBlock(), treeType, player)) {
-                if(random.nextInt(100) + 1 <= doubleChance) {
+                if(random.nextDouble(100) <= doubleChance) {
                     player.sendMessage(YggdrasilsBark.messages.doubleDrop);
                     player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
                     utilities.spawnCreature(event.getBlock(), treeType, player);
@@ -59,9 +59,9 @@ public class BlockBreakListeners implements Listener {
         }
 
 
-        if(random.nextInt(100 ) + 1 <= itemChance) {
+        if(random.nextDouble(100 ) <= itemChance) {
             utilities.giveReward(player);
-            if(random.nextInt(100) + 1 <= doubleChance) {
+            if(random.nextDouble(100) <= doubleChance) {
                 player.sendMessage(YggdrasilsBark.messages.doubleDrop);
                 player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
                 utilities.giveReward(player);

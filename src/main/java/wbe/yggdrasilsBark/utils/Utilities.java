@@ -9,7 +9,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -49,8 +48,8 @@ public class Utilities {
         return axe;
     }
 
-    public int getPlayerCreatureChance(Player player) {
-        int chance = YggdrasilsBark.config.baseCreatureChance;
+    public double getPlayerCreatureChance(Player player) {
+        double chance = YggdrasilsBark.config.baseCreatureChance;
 
         PlayerInventory inventory = player.getInventory();
         ItemStack mainHand = inventory.getItemInMainHand();
@@ -75,7 +74,7 @@ public class Utilities {
         return chance;
     }
 
-    private int getItemCreatureChance(ItemStack item) {
+    private double getItemCreatureChance(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         if(meta == null) {
             return 0;
@@ -90,14 +89,14 @@ public class Utilities {
 
         NamespacedKey baseCreatureKey = new NamespacedKey(plugin, "creatureChance");
         if(meta.getPersistentDataContainer().has(baseCreatureKey)) {
-            return meta.getPersistentDataContainer().get(baseCreatureKey, PersistentDataType.INTEGER);
+            return meta.getPersistentDataContainer().get(baseCreatureKey, PersistentDataType.DOUBLE);
         }
 
         return 0;
     }
 
-    public int getPlayerItemChance(Player player) {
-        int chance = YggdrasilsBark.config.baseItemChance;
+    public double getPlayerItemChance(Player player) {
+        double chance = YggdrasilsBark.config.baseItemChance;
 
         PlayerInventory inventory = player.getInventory();
         ItemStack mainHand = inventory.getItemInMainHand();
@@ -122,7 +121,7 @@ public class Utilities {
         return chance;
     }
 
-    private int getItemItemChance(ItemStack item) {
+    private double getItemItemChance(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         if(meta == null) {
             return 0;
@@ -137,14 +136,14 @@ public class Utilities {
 
         NamespacedKey baseItemKey = new NamespacedKey(plugin, "itemChance");
         if(meta.getPersistentDataContainer().has(baseItemKey)) {
-            return meta.getPersistentDataContainer().get(baseItemKey, PersistentDataType.INTEGER);
+            return meta.getPersistentDataContainer().get(baseItemKey, PersistentDataType.DOUBLE);
         }
 
         return 0;
     }
 
-    public int getPlayerDoubleChance(Player player) {
-        int chance = 0;
+    public double getPlayerDoubleChance(Player player) {
+        double chance = YggdrasilsBark.config.baseDoubleDropChance;
 
         PlayerInventory inventory = player.getInventory();
         ItemStack mainHand = inventory.getItemInMainHand();
@@ -169,7 +168,7 @@ public class Utilities {
         return chance;
     }
 
-    private int getItemDoubleChance(ItemStack item) {
+    private double getItemDoubleChance(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         if(meta == null) {
             return 0;
@@ -184,7 +183,7 @@ public class Utilities {
 
         NamespacedKey baseDoubleKey = new NamespacedKey(plugin, "doubleChance");
         if(meta.getPersistentDataContainer().has(baseDoubleKey)) {
-            return meta.getPersistentDataContainer().get(baseDoubleKey, PersistentDataType.INTEGER);
+            return meta.getPersistentDataContainer().get(baseDoubleKey, PersistentDataType.DOUBLE);
         }
 
         return 0;
@@ -354,7 +353,7 @@ public class Utilities {
         return rewards.get(random.nextInt(rewards.size()));
     }
 
-    public void addDoubleDropChance(ItemStack item, int chance) {
+    public void addDoubleDropChance(ItemStack item, double chance) {
         NamespacedKey baseDoubleKey = new NamespacedKey(plugin, "doubleChance");
         String loreLine = YggdrasilsBark.config.axeDoubleChance
                 .replace("%double_chance%", String.valueOf(chance));
@@ -372,11 +371,11 @@ public class Utilities {
         lore.add(loreLine);
         meta.setLore(lore);
 
-        meta.getPersistentDataContainer().set(baseDoubleKey, PersistentDataType.INTEGER, chance);
+        meta.getPersistentDataContainer().set(baseDoubleKey, PersistentDataType.DOUBLE, chance);
         item.setItemMeta(meta);
     }
 
-    public void addItemChance(ItemStack item, int chance) {
+    public void addItemChance(ItemStack item, double chance) {
         NamespacedKey baseItemKey = new NamespacedKey(plugin, "itemChance");
         String loreLine = YggdrasilsBark.config.axeItemChance
                 .replace("%item_chance%", String.valueOf(chance));
@@ -394,11 +393,11 @@ public class Utilities {
         lore.add(loreLine);
         meta.setLore(lore);
 
-        meta.getPersistentDataContainer().set(baseItemKey, PersistentDataType.INTEGER, chance);
+        meta.getPersistentDataContainer().set(baseItemKey, PersistentDataType.DOUBLE, chance);
         item.setItemMeta(meta);
     }
 
-    public void addCreatureChance(ItemStack item, int chance) {
+    public void addCreatureChance(ItemStack item, double chance) {
         NamespacedKey baseCreatureKey = new NamespacedKey(plugin, "creatureChance");
         String loreLine = YggdrasilsBark.config.axeCreatureChance
                 .replace("%creature_chance%", String.valueOf(chance));
@@ -416,7 +415,7 @@ public class Utilities {
         lore.add(loreLine);
         meta.setLore(lore);
 
-        meta.getPersistentDataContainer().set(baseCreatureKey, PersistentDataType.INTEGER, chance);
+        meta.getPersistentDataContainer().set(baseCreatureKey, PersistentDataType.DOUBLE, chance);
         item.setItemMeta(meta);
     }
 

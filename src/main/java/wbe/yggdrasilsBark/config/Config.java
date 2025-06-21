@@ -15,9 +15,9 @@ public class Config {
 
     private FileConfiguration config;
 
-    public int baseItemChance;
-    public int baseCreatureChance;
-    public int baseDoubleDropChance;
+    public double baseItemChance;
+    public double baseCreatureChance;
+    public double baseDoubleDropChance;
     public String activeMode;
     public String inactiveMode;
 
@@ -40,9 +40,9 @@ public class Config {
     public Config(FileConfiguration config) {
         this.config = config;
 
-        baseItemChance = config.getInt("Config.baseItemChance");
-        baseCreatureChance = config.getInt("Config.baseCreatureChance");
-        baseDoubleDropChance = config.getInt("Config.baseDoubleDropChance");
+        baseItemChance = config.getDouble("Config.baseItemChance");
+        baseCreatureChance = config.getDouble("Config.baseCreatureChance");
+        baseDoubleDropChance = config.getDouble("Config.baseDoubleDropChance");
         activeMode = config.getString("Config.activeMode").replace("&", "§");
         inactiveMode = config.getString("Config.inactiveMode").replace("&", "§");
         doubleDropSound = config.getString("Sounds.doubleDropSound");

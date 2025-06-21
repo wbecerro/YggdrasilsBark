@@ -51,8 +51,8 @@ public class CommandListener implements CommandExecutor {
                     sender.sendMessage(YggdrasilsBark.messages.invalidMaterial);
                     return false;
                 }
-                int itemChance = Integer.valueOf(args[2]);
-                int creatureChance = Integer.valueOf(args[3]);
+                double itemChance = Double.parseDouble(args[2]);
+                double creatureChance = Double.parseDouble(args[3]);
 
                 Axe axe = new Axe(material, itemChance, creatureChance);
                 if(args.length > 4) {
@@ -91,7 +91,7 @@ public class CommandListener implements CommandExecutor {
                     return false;
                 }
 
-                utilities.addDoubleDropChance(player.getInventory().getItemInMainHand(), Integer.valueOf(args[1]));
+                utilities.addDoubleDropChance(player.getInventory().getItemInMainHand(), Double.parseDouble(args[1]));
                 sender.sendMessage(YggdrasilsBark.messages.doubleDropAdded);
             } else if(args[0].equalsIgnoreCase("itemChance")) {
                 if(!sender.hasPermission("yggdrasilsbark.command.itemChance")) {
@@ -105,7 +105,7 @@ public class CommandListener implements CommandExecutor {
                     return false;
                 }
 
-                utilities.addItemChance(player.getInventory().getItemInMainHand(), Integer.valueOf(args[1]));
+                utilities.addItemChance(player.getInventory().getItemInMainHand(), Double.parseDouble(args[1]));
                 sender.sendMessage(YggdrasilsBark.messages.itemChanceAdded);
             } else if(args[0].equalsIgnoreCase("creatureChance")) {
                 if(!sender.hasPermission("yggdrasilsbark.command.creatureChance")) {
@@ -119,7 +119,7 @@ public class CommandListener implements CommandExecutor {
                     return false;
                 }
 
-                utilities.addCreatureChance(player.getInventory().getItemInMainHand(), Integer.valueOf(args[1]));
+                utilities.addCreatureChance(player.getInventory().getItemInMainHand(), Double.parseDouble(args[1]));
                 sender.sendMessage(YggdrasilsBark.messages.creatureChanceAdded);
             } else if(args[0].equalsIgnoreCase("stats")) {
                 if(!sender.hasPermission("yggdrasilsbark.command.stats")) {
