@@ -10,15 +10,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import wbe.yggdrasilsBark.YggdrasilsBark;
 import wbe.yggdrasilsBark.rarities.Tree;
-import wbe.yggdrasilsBark.utils.Utilities;
 
 import java.util.Random;
 
 public class BlockBreakListeners implements Listener {
-
-    private YggdrasilsBark plugin = YggdrasilsBark.getInstance();
-
-    private Utilities utilities = new Utilities();
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void giveRewardsOnBreakingWood(BlockBreakEvent event) {
@@ -43,16 +38,16 @@ public class BlockBreakListeners implements Listener {
 
         Random random = new Random();
         Player player = event.getPlayer();
-        double creatureChance = utilities.getPlayerCreatureChance(player);
-        double itemChance = utilities.getPlayerItemChance(player);
-        double doubleChance = utilities.getPlayerDoubleChance(player);
+        double creatureChance = YggdrasilsBark.utilities.getPlayerCreatureChance(player);
+        double itemChance = YggdrasilsBark.utilities.getPlayerItemChance(player);
+        double doubleChance = YggdrasilsBark.utilities.getPlayerDoubleChance(player);
 
         if(random.nextDouble(100) <= creatureChance) {
-            if(utilities.spawnCreature(event.getBlock(), treeType, player)) {
+            if(YggdrasilsBark.utilities.spawnCreature(event.getBlock(), treeType, player)) {
                 if(random.nextDouble(100) <= doubleChance) {
                     player.sendMessage(YggdrasilsBark.messages.doubleDrop);
                     player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
-                    utilities.spawnCreature(event.getBlock(), treeType, player);
+                    YggdrasilsBark.utilities.spawnCreature(event.getBlock(), treeType, player);
                 }
                 return;
             }
@@ -60,11 +55,11 @@ public class BlockBreakListeners implements Listener {
 
 
         if(random.nextDouble(100 ) <= itemChance) {
-            utilities.giveReward(player);
+            YggdrasilsBark.utilities.giveReward(player);
             if(random.nextDouble(100) <= doubleChance) {
                 player.sendMessage(YggdrasilsBark.messages.doubleDrop);
                 player.playSound(player.getLocation(), Sound.valueOf(YggdrasilsBark.config.doubleDropSound), 1F, 1F);
-                utilities.giveReward(player);
+                YggdrasilsBark.utilities.giveReward(player);
             }
             return;
         }

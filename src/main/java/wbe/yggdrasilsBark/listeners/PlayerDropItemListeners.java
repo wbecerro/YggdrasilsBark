@@ -14,13 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import wbe.yggdrasilsBark.YggdrasilsBark;
-import wbe.yggdrasilsBark.utils.Utilities;
 
 public class PlayerDropItemListeners implements Listener {
-
-    private YggdrasilsBark plugin = YggdrasilsBark.getInstance();
-
-    private Utilities utilities = new Utilities();
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void switchModeOnDrop(PlayerDropItemEvent event) {
@@ -39,13 +34,13 @@ public class PlayerDropItemListeners implements Listener {
             return;
         }
 
-        NamespacedKey modeKey = new NamespacedKey(plugin, "AxeMode");
+        NamespacedKey modeKey = new NamespacedKey(YggdrasilsBark.getInstance(), "AxeMode");
         if(!meta.getPersistentDataContainer().has(modeKey)) {
             return;
         }
 
         boolean newMode = !meta.getPersistentDataContainer().get(modeKey, PersistentDataType.BOOLEAN);
-        ItemStack changedItem = utilities.changeAxeMode(droppedItem, newMode);
+        ItemStack changedItem = YggdrasilsBark.utilities.changeAxeMode(droppedItem, newMode);
         meta = droppedItem.getItemMeta();
         meta.getPersistentDataContainer().set(modeKey, PersistentDataType.BOOLEAN, newMode);
         droppedItem.setItemMeta(meta);

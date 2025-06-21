@@ -9,6 +9,7 @@ import wbe.yggdrasilsBark.config.Config;
 import wbe.yggdrasilsBark.config.Messages;
 import wbe.yggdrasilsBark.listeners.EventListeners;
 import wbe.yggdrasilsBark.papi.PapiExtension;
+import wbe.yggdrasilsBark.utils.Utilities;
 
 import java.io.File;
 
@@ -27,6 +28,8 @@ public final class YggdrasilsBark extends JavaPlugin {
     public static Config config;
 
     public static Messages messages;
+
+    public static Utilities utilities;
 
     @Override
     public void onEnable() {
@@ -60,10 +63,12 @@ public final class YggdrasilsBark extends JavaPlugin {
         if(!new File(getDataFolder(), "config.yml").exists()) {
             saveDefaultConfig();
         }
+
         reloadConfig();
         configuration = getConfig();
         config = new Config(configuration);
         messages = new Messages(configuration);
+        utilities = new Utilities();
     }
 
 }

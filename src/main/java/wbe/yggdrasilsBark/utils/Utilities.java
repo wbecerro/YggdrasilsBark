@@ -26,7 +26,11 @@ import java.util.Random;
 
 public class Utilities {
 
-    private YggdrasilsBark plugin = YggdrasilsBark.getInstance();
+    private YggdrasilsBark plugin;
+
+    public Utilities() {
+        plugin = YggdrasilsBark.getInstance();
+    }
 
     public ItemStack changeAxeMode(ItemStack axe, boolean mode) {
         int modeLine = findLine(axe, YggdrasilsBark.config.axeMode.split(":")[0]);
@@ -450,14 +454,7 @@ public class Utilities {
 
         double playerChance = player.getPersistentDataContainer().get(key, PersistentDataType.DOUBLE);
         playerChance -= chance;
-        if(playerChance <= 0) {
-            player.getPersistentDataContainer().remove(key);
-            if(type > 2) {
-                player.getPersistentDataContainer().remove(new NamespacedKey(plugin, "boostRarity"));
-            }
-        } else {
-            player.getPersistentDataContainer().set(key, PersistentDataType.DOUBLE, playerChance);
-        }
+        player.getPersistentDataContainer().set(key, PersistentDataType.DOUBLE, playerChance);
     }
 
     public void addDoubleDropChance(ItemStack item, double chance) {

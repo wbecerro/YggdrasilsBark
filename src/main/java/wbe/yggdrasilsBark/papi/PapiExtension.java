@@ -3,13 +3,8 @@ package wbe.yggdrasilsBark.papi;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import wbe.yggdrasilsBark.YggdrasilsBark;
-import wbe.yggdrasilsBark.utils.Utilities;
 
 public class PapiExtension extends PlaceholderExpansion {
-
-    private YggdrasilsBark plugin = YggdrasilsBark.getInstance();
-
-    private Utilities utilities = new Utilities();
 
     @Override
     public String getAuthor() {
@@ -34,11 +29,11 @@ public class PapiExtension extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         if(params.equalsIgnoreCase("itemchance")) {
-            return String.valueOf(utilities.getPlayerItemChance(player.getPlayer()));
+            return String.valueOf(YggdrasilsBark.utilities.getPlayerItemChance(player.getPlayer()));
         } else if(params.equalsIgnoreCase("creaturechance")) {
-            return String.valueOf(utilities.getPlayerCreatureChance(player.getPlayer()));
+            return String.valueOf(YggdrasilsBark.utilities.getPlayerCreatureChance(player.getPlayer()));
         } else if(params.equalsIgnoreCase("doublechance")) {
-            return String.valueOf(utilities.getPlayerDoubleChance(player.getPlayer()));
+            return String.valueOf(YggdrasilsBark.utilities.getPlayerDoubleChance(player.getPlayer()));
         }
 
         return null;
