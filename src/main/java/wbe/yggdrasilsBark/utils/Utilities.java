@@ -71,6 +71,11 @@ public class Utilities {
             chance += getItemCreatureChance(item);
         }
 
+        NamespacedKey baseCreatureKey = new NamespacedKey(plugin, "creatureChance");
+        if(player.getPersistentDataContainer().has(baseCreatureKey)) {
+            chance += player.getPersistentDataContainer().get(baseCreatureKey, PersistentDataType.DOUBLE);
+        }
+
         return chance;
     }
 
@@ -116,6 +121,11 @@ public class Utilities {
                 continue;
             }
             chance += getItemItemChance(item);
+        }
+
+        NamespacedKey baseItemKey = new NamespacedKey(plugin, "itemChance");
+        if(player.getPersistentDataContainer().has(baseItemKey)) {
+            chance += player.getPersistentDataContainer().get(baseItemKey, PersistentDataType.DOUBLE);
         }
 
         return chance;
@@ -165,6 +175,11 @@ public class Utilities {
             chance += getItemDoubleChance(item);
         }
 
+        NamespacedKey baseDoubleKey = new NamespacedKey(plugin, "doubleChance");
+        if(player.getPersistentDataContainer().has(baseDoubleKey)) {
+            chance += player.getPersistentDataContainer().get(baseDoubleKey, PersistentDataType.DOUBLE);
+        }
+
         return chance;
     }
 
@@ -210,6 +225,16 @@ public class Utilities {
                 continue;
             }
             chance += getItemBoostedChance(rarity, item);
+        }
+
+        NamespacedKey rarityKey = new NamespacedKey(plugin, "boostRarity");
+        if(player.getPersistentDataContainer().has(rarityKey)) {
+            if(player.getPersistentDataContainer().get(rarityKey, PersistentDataType.STRING).equalsIgnoreCase(rarity.getInternalName())) {
+                NamespacedKey percentKey = new NamespacedKey(plugin, "boostRarityPercent");
+                if(player.getPersistentDataContainer().has(percentKey)) {
+                    chance += player.getPersistentDataContainer().get(percentKey, PersistentDataType.DOUBLE);
+                }
+            }
         }
 
         return chance;
@@ -353,6 +378,77 @@ public class Utilities {
         return rewards.get(random.nextInt(rewards.size()));
     }
 
+    /**
+     * Método para añadir probabilidad de objetos, criaturas, doble recompensa o rareza mejorada a un jugador.
+     *
+     * @param player Jugador al que añadir
+     * @param chance Probabiliad a añadir
+     * @param type Tipo de probabilidad 0 -> objetos, 1 -> criaturas, 2 -> doble, 3 -> rareza mejorada
+     * @param rarity Parámetro exclusivo para el uso de rareza mejorada
+     */
+    public void addChanceToPlayer(Player player, double chance, int type, String rarity) {
+        NamespacedKey key;
+        switch(type) {
+            case 0:
+                key = new NamespacedKey(plugin, "itemChance");
+                break;
+            case 1:
+                key = new NamespacedKey(plugin, "creatureChance");
+                break;
+            case 2:
+                key = new NamespacedKey(plugin, "doubleChance");
+                break;
+            default:
+                key = new NamespacedKey(plugin, "boostRarityPercent");
+                NamespacedKey rarityKey = new NamespacedKey(plugin, "boostRarity");
+                player.getPersistentDataContainer().set(rarityKey, PersistentDataType.STRING, rarity);
+                break;
+        }
+
+        player.getPersistentDataContainer().set(key, PersistentDataType.DOUBLE, chance);
+    }
+
+    /**
+     * Método para quitar probabilidad de objetos, criaturas, doble recompensa o rareza mejorada a un jugador.
+     *
+     * @param player Jugador al que quitar
+     * @param chance Probabiliad a quitar
+     * @param type Tipo de probabilidad 0 -> objetos, 1 -> criaturas, 2 -> doble, 3 -> rareza mejorada
+     * @param rarity Parámetro exclusivo para el uso de rareza mejorada
+     */
+    public void removeChanceFromPlayer(Player player, double chance, int type, String rarity) {
+        NamespacedKey key;
+        switch(type) {
+            case 0:
+                key = new NamespacedKey(plugin, "itemChance");
+                break;
+            case 1:
+                key = new NamespacedKey(plugin, "creatureChance");
+                break;
+            case 2:
+                key = new NamespacedKey(plugin, "doubleChance");
+                break;
+            default:
+                key = new NamespacedKey(plugin, "boostRarityPercent");
+                break;
+        }
+
+        if(!player.getPersistentDataContainer().has(key)) {
+            return;
+        }
+
+        double playerChance = player.getPersistentDataContainer().get(key, PersistentDataType.DOUBLE);
+        playerChance -= chance;
+        if(playerChance <= 0) {
+            player.getPersistentDataContainer().remove(key);
+            if(type > 2) {
+                player.getPersistentDataContainer().remove(new NamespacedKey(plugin, "boostRarity"));
+            }
+        } else {
+            player.getPersistentDataContainer().set(key, PersistentDataType.DOUBLE, playerChance);
+        }
+    }
+
     public void addDoubleDropChance(ItemStack item, double chance) {
         NamespacedKey baseDoubleKey = new NamespacedKey(plugin, "doubleChance");
         String loreLine = YggdrasilsBark.config.axeDoubleChance
@@ -445,7 +541,7 @@ public class Utilities {
         item.setItemMeta(meta);
     }
 
-    private Rarity getRarityByName(String name) {
+    public Rarity getRarityByName(String name) {
         for(Rarity rarity : YggdrasilsBark.config.rarities) {
             if(rarity.getInternalName().equalsIgnoreCase(name)) {
                 return rarity;
