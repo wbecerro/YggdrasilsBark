@@ -3,6 +3,7 @@ package wbe.yggdrasilsBark.papi;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import wbe.yggdrasilsBark.YggdrasilsBark;
+import wbe.yggdrasilsBark.rarities.Rarity;
 
 public class PapiExtension extends PlaceholderExpansion {
 
@@ -34,6 +35,9 @@ public class PapiExtension extends PlaceholderExpansion {
             return String.valueOf(YggdrasilsBark.utilities.getPlayerCreatureChance(player.getPlayer()));
         } else if(params.equalsIgnoreCase("doublechance")) {
             return String.valueOf(YggdrasilsBark.utilities.getPlayerDoubleChance(player.getPlayer()));
+        } else if(params.contains("chance")) {
+            String rarityName = params.replace("chance", "");
+            return YggdrasilsBark.utilities.showRarityChance(rarityName, player.getPlayer());
         }
 
         return null;

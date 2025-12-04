@@ -325,6 +325,17 @@ public class Utilities {
         return newWeight - boostedRarity.getWeight();
     }
 
+    private Rarity getBoostedRarity(Player player) {
+        for(Rarity rarity : YggdrasilsBark.config.rarities) {
+            double boosted = getPlayerBoostedChance(rarity, player);
+            if(boosted != 0) {
+                return rarity;
+            }
+        }
+
+        return null;
+    }
+
     public boolean spawnCreature(Block block, Tree tree, Player player) {
         if(UserManager.getPlayer(player).getSkillLevel(tree.getSkill()) < tree.getSkillLevel()) {
             return false;
@@ -549,7 +560,7 @@ public class Utilities {
         item.setItemMeta(meta);
     }
 
-    public Rarity getRarityByName(String name) {
+    private Rarity getRarityByName(String name) {
         for(Rarity rarity : YggdrasilsBark.config.rarities) {
             if(rarity.getInternalName().equalsIgnoreCase(name)) {
                 return rarity;
@@ -557,6 +568,23 @@ public class Utilities {
         }
 
         return null;
+    }
+
+    public String showRarityChance(String rarityName, Player player) {
+        Rarity rarity = getRarityByName(rarityName);
+        double totalWeight = YggdrasilsBark.config.totalRarityWeight;
+        double rarityWeight = rarity.getWeight();
+
+        Rarity boostedRarity = getBoostedRarity(player.getPlayer());
+        if(boostedRarity != null && rarity.getInternalName().equalsIgnoreCase(boostedRarity.getInternalName())) {
+            double boostPercent = getPlayerBoostedChance(rarity, player.getPlayer());
+            double boostedAmount = getBoostedAmount(rarity, boostPercent);
+            totalWeight += boostedAmount;
+            rarityWeight += boostedAmount;
+        }
+
+        double finalChance = rarityWeight / totalWeight * 100;
+        return String.format("%.2f", finalChance);
     }
 
     private FireworkMeta getRandomFirework(Firework firework) {
