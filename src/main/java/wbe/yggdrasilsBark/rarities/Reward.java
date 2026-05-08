@@ -1,14 +1,13 @@
 package wbe.yggdrasilsBark.rarities;
 
-public class Reward {
+import org.bukkit.entity.Player;
+
+public abstract class Reward {
 
     private String suffix;
 
-    private String command;
-
-    public Reward(String suffix, String command) {
+    public Reward(String suffix) {
         this.suffix = suffix;
-        this.command = command;
     }
 
     public String getSuffix() {
@@ -19,11 +18,5 @@ public class Reward {
         this.suffix = suffix;
     }
 
-    public String getCommand() {
-        return command;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
-    }
+    public abstract void giveReward(Player player);
 }

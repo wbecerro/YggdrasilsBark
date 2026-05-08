@@ -364,7 +364,6 @@ public class Utilities {
     public void giveReward(Player player) {
         Rarity rarity = getRarity(player);
         Reward reward = getRandomReward(rarity);
-        String command = reward.getCommand().replace("%player%", player.getName());
         if(!rarity.getBroadcast().isEmpty()) {
             Bukkit.getServer().broadcastMessage(rarity.getBroadcast().replace("%player%", player.getName()));
         }
@@ -380,7 +379,7 @@ public class Utilities {
             }
         }
 
-        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+        reward.giveReward(player);
         String message = rarity.getPrefix() + reward.getSuffix();
         player.sendMessage(message);
         plugin.getServer().getPluginManager().callEvent(new PlayerReceiveRewardEvent(player, rarity, reward));
